@@ -44,34 +44,48 @@ const BookList: React.FC<BookListProps> = ({ books, onEdit }) => {
 
   return (
     <div>
-      <table>
-        <thead>
+      <table className="w-full bg-white shadow-md rounded">
+        <thead className="bg-gray-200">
           <tr>
-            <th onClick={() => handleSort('title')}>Title</th>
-            <th onClick={() => handleSort('author')}>Author</th>
-            <th onClick={() => handleSort('publicationYear')}>Year</th>
-            <th onClick={() => handleSort('genre')}>Genre</th>
-            <th>Actions</th>
+            <th className="p-2 cursor-pointer text-start" onClick={() => handleSort('title')}>Title</th>
+            <th className="p-2 cursor-pointer" onClick={() => handleSort('author')}>Author</th>
+            <th className="p-2 cursor-pointer" onClick={() => handleSort('publicationYear')}>Year</th>
+            <th className="p-2 cursor-pointer" onClick={() => handleSort('genre')}>Genre</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {currentBooks.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.publicationYear}</td>
-              <td>{book.genre}</td>
-              <td>
-                <button onClick={() => onEdit(book.id)}>Edit</button>
-                <button onClick={() => deleteBook(book.id)}>Delete</button>
+            <tr key={book.id} className="border-b">
+              <td className="p-3 text-start" >{book.title}</td>
+              <td className="p-3 text-center">{book.author}</td>
+              <td className="p-3 text-center">{book.publicationYear}</td>
+              <td className="p-3 text-center">{book.genre}</td>
+              <td className="p-3 text-center">
+                <button 
+                  onClick={() => onEdit(book.id)}
+                  className="bg-yellow-500 text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600"
+                >
+                  Edit
+                </button>
+                <button 
+                  onClick={() => deleteBook(book.id)}
+                  className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div>
+      <div className="mt-4 flex justify-center space-x-2">
         {Array.from({ length: Math.ceil(books.length / booksPerPage) }, (_, i) => (
-          <button key={i} onClick={() => paginate(i + 1)}>
+          <button 
+            key={i} 
+            onClick={() => paginate(i + 1)}
+            className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
             {i + 1}
           </button>
         ))}

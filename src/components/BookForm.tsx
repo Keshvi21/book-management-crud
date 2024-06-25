@@ -20,8 +20,8 @@ const BookForm: React.FC<BookFormProps> = ({ onClose, editingBookId }) => {
   const editingBook = editingBookId ? books.find(book => book.id === editingBookId) : null;
 
   return (
-    <div>
-      <h2>{editingBook ? 'Edit Book' : 'Add New Book'}</h2>
+    <div className="bg-white p-6 rounded shadow-md">
+      <h2 className="text-2xl font-bold mb-4">{editingBook ? 'Edit Book' : 'Add New Book'}</h2>
       <Formik
         initialValues={editingBook || { title: '', author: '', publicationYear: 0, genre: '' }}
         validationSchema={BookSchema}
@@ -36,29 +36,59 @@ const BookForm: React.FC<BookFormProps> = ({ onClose, editingBookId }) => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form className="space-y-4">
             <div>
-              <Field type="text" name="title" placeholder="Title" />
-              <ErrorMessage name="title" component="div" />
+              <Field 
+                type="text" 
+                name="title" 
+                placeholder="Title" 
+                className="w-full p-2 border rounded"
+              />
+              <ErrorMessage name="title" component="div" className="text-red-500 text-sm" />
             </div>
             <div>
-              <Field type="text" name="author" placeholder="Author" />
-              <ErrorMessage name="author" component="div" />
+              <Field 
+                type="text" 
+                name="author" 
+                placeholder="Author" 
+                className="w-full p-2 border rounded"
+              />
+              <ErrorMessage name="author" component="div" className="text-red-500 text-sm" />
             </div>
             <div>
-              <Field type="number" name="publicationYear" placeholder="Publication Year" />
-              <ErrorMessage name="publicationYear" component="div" />
+              <Field 
+                type="number" 
+                name="publicationYear" 
+                placeholder="Publication Year" 
+                className="w-full p-2 border rounded"
+              />
+              <ErrorMessage name="publicationYear" component="div" className="text-red-500 text-sm" />
             </div>
             <div>
-              <Field type="text" name="genre" placeholder="Genre" />
-              <ErrorMessage name="genre" component="div" />
+              <Field 
+                type="text" 
+                name="genre" 
+                placeholder="Genre" 
+                className="w-full p-2 border rounded"
+              />
+              <ErrorMessage name="genre" component="div" className="text-red-500 text-sm" />
             </div>
-            <button type="submit" disabled={isSubmitting}>
-              {editingBook ? 'Update' : 'Add'} Book
-            </button>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
+            <div className="flex justify-end space-x-2">
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-blue-300"
+              >
+                {editingBook ? 'Update' : 'Add'} Book
+              </button>
+              <button 
+                type="button" 
+                onClick={onClose}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import BookList from './BookList';
 import BookForm from './BookForm';
 import { useBooks } from '../context/BookContext';
-import { useAuth } from '../context/AuthContext';
 
 const Dashboard: React.FC = () => {
-  const { user, logout } = useAuth();
   const { books } = useBooks();
   const [showForm, setShowForm] = useState(false);
   const [editingBook, setEditingBook] = useState<number | null>(null);
 
   return (
-    <div>
-      <h1>Book Management Dashboard</h1>
-      <p>Welcome, {user?.email}</p>
-      <button onClick={logout}>Logout</button>
-      <button onClick={() => setShowForm(true)}>Add New Book</button>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Book Management Dashboard</h1>
+      <button 
+        onClick={() => setShowForm(true)}
+        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+      >
+        Add New Book
+      </button>
       {showForm && (
         <BookForm
           onClose={() => {

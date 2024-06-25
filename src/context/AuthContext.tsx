@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   email: string;
@@ -19,7 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-
+  const navigate = useNavigate()
   const login = (email: string, password: string) => {
     // Implement actual login logic here
     setUser({ email });
@@ -27,6 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    navigate("login")
   };
 
   const register = (email: string, password: string) => {
